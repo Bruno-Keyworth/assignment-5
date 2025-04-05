@@ -19,6 +19,7 @@ private:
   double half_life;
   bool has_decayed = false;
   std::vector<std::string> isotopes = {"Na-22", "Co-60", "Cs-137"};
+  std::vector<std::string> products = {"Ne-22", "Ni-60", "Ba-137"};
   std::vector<double> half_lives = {2.603, 5.272, 30.17};
   std::vector<std::string> history;
   std::vector<std::vector<double>> photon_energies = {{1274.5}, {1.1732, 1.3325}, {0.661}};

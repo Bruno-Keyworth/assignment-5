@@ -9,8 +9,13 @@
 #include<cmath>
 #include"Photon.h"
 #include"Electron.h"
+#include"functions.h"
 
 void Photon::printData()
 {
-  
+  std::string row;
+  row += "Photon  ";
+  row += " | " + add_spaces(source, 6);
+  row += " | " + to_string_trimmed(energy);
+  std::cout<<row<<std::endl;
 }

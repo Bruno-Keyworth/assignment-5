@@ -16,16 +16,20 @@
 class Photon : public Particle
 {
 private:
-  std::string type;
+  std::string source;
 protected:
   double energy;
 
-  void trySet(const std::function<void()>& setter);
 public:
   void printData() override;
+  void setSource(std::string emitted_by) { source = emitted_by; }
   
   Photon(double E) : Particle(0, E) {}
-  
+  Photon(double E, std::string emitted_by) : Particle(0, E)
+  {
+    trySet([&] { setSource(emitted_by); });
+  }
+
   friend class Electron;
 };
 
