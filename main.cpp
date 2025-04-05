@@ -8,6 +8,7 @@
 #include<vector>
 #include<cmath>
 #include<memory>
+#include<variant>
 #include"Nucleus.h"
 #include"StableNucleus.h"
 #include"RadioactiveNucleus.h"
@@ -17,20 +18,25 @@
 
 int main()
 {
-  std::vector<Nucleus*> nuclei;
+  std::vector<std::variant<RadioactiveNucleus, StableNucleus>> nuclei;
   nuclei.reserve(4);
-  nuclei.emplace_back(new RadioactiveNucleus("Na-22"));
-  nuclei.emplace_back(new RadioactiveNucleus("Co-60"));
-  nuclei.emplace_back(new RadioactiveNucleus("Cs-137"));
-  nuclei.emplace_back(new StableNucleus("Fe-56"));
+  nuclei.emplace_back(RadioactiveNucleus("Na-22"));
+  nuclei.emplace_back(RadioactiveNucleus("Co-60"));
+  nuclei.emplace_back(RadioactiveNucleus("Cs-137"));
+  nuclei.emplace_back(StableNucleus("Fe-56"));
 
   std::cout<<std::string(80, '-')<<std::endl;
   std::cout<<"Isotope | Z   | A   | Halflife (yr) | Decayed?"<<std::endl;
   std::cout<<std::string(80, '-')<<std::endl;
-  for(const auto& nucleus : nuclei)
-  {
-    nucleus->printData();
-  }
+  for(const auto& nucleus : nuclei) std::visit([](auto& n) { n.printData(); }, nucleus);
+  std::cout<<std::string(80, '-')<<std::endl;
+  
+  for(auto& nucleus : nuclei) { std::visit([](auto& n) { if constexpr (std::is_same_v<decltype(n), RadioactiveNucleus&>) {n.decay();} }, nucleus); }
+  
+  std::cout<<std::string(80, '-')<<std::endl;
+  std::cout<<"Isotope | Z   | A   | Halflife (yr) | Decayed?"<<std::endl;
+  std::cout<<std::string(80, '-')<<std::endl;
+  for(const auto& nucleus : nuclei) std::visit([](auto& n) { n.printData(); }, nucleus);
   std::cout<<std::string(80, '-')<<std::endl;
   return 0;
 }

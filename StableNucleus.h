@@ -10,6 +10,7 @@
 #include<vector>
 #include<cmath>
 #include"Nucleus.h"
+#include"Photon.h"
 
 class StableNucleus : public Nucleus
 {
@@ -17,8 +18,7 @@ protected:
 public:
   StableNucleus(int Z, int A) : Nucleus(Z, A) {}
   StableNucleus(std::string isotope) : Nucleus(isotope) {}
-  
-  void printData() override;
+  void printData() const override;
 
 };
 

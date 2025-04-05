@@ -10,7 +10,7 @@
 #include"StableNucleus.h"
 #include"functions.h"
 
-void StableNucleus::printData()
+void StableNucleus::printData() const
 {
   std::string row;
   row += add_spaces(type, 7);

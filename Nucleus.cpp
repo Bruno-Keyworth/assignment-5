@@ -43,7 +43,8 @@ void Nucleus::setA()
 
 void Nucleus::setType()
 {
-  type = elements[atomic_number-1] + "-" + std::to_string(atomic_mass);
+  if(atomic_number<elements.size()) { type = elements[atomic_number-1] + "-" + std::to_string(atomic_mass); }
+  else { type = "?\?-" + std::to_string(atomic_mass); }
 }
 
 void Nucleus::trySet(const std::function<void()>& setter)
@@ -52,7 +53,7 @@ void Nucleus::trySet(const std::function<void()>& setter)
   catch (const std::invalid_argument& error) { std::cout << error.what() << std::endl; }
 }
 
-void Nucleus::printData()
+void Nucleus::printData() const
 {
   std::string row;
   row += add_spaces(type, 7);

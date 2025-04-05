@@ -10,6 +10,7 @@
 #include<vector>
 #include<cmath>
 #include<functional>
+#include"Photon.h"
 
 class Nucleus
 {
@@ -35,15 +36,15 @@ protected:
   void trySet(const std::function<void()>& setter);
   void setZ();
   void setA();
-  void setType();
+  virtual void setType();
 public:
   void setZ(int Z);
   void setA(int A);
-  void setType(std::string ntype) { type = ntype; setZ(); setA(); }
+  virtual void setType(std::string ntype) { type = ntype; setZ(); setA(); }
   int getZ() const { return atomic_number; }
   int getA() const { return atomic_mass; }
   std::string getType() const { return type; }
-  virtual void printData();
+  virtual void printData() const;
   
   Nucleus() = default;
   Nucleus(int Z, int A)

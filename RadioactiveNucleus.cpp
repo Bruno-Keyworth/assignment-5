@@ -7,6 +7,7 @@
 #include<string>
 #include<vector>
 #include<cmath>
+#include <memory>
 #include"RadioactiveNucleus.h"
 #include"functions.h"
 #include"Photon.h"
@@ -23,18 +24,40 @@ void RadioactiveNucleus::setHalfLife()
   if(index < isotopes.size())
   {
     half_life = half_lives[index];
-  } else { throw std::invalid_argument("Error: Isotope halflife unknown " + type); }
+  } else { throw std::invalid_argument("Error: Isotope halflife unknown: " + type); }
+}
+
+void RadioactiveNucleus::setPhotons()
+{
+  int index = get_index(type, isotopes);
+  if(index < isotopes.size())
+  {
+    for(double photon_energy : photon_energies[index]) { photons.emplace_back(std::make_unique<Photon>(photon_energy)); }
+  } else { throw std::invalid_argument("Error: Decay scheme unknown: " + type); }
+}
+
+void RadioactiveNucleus::setPhotons(std::vector<double> energies)
+{
+  photons.clear();
+  for(double energy : energies){ photons.emplace_back(std::make_unique<Photon>(energy)); }
 }
 
 std::vector<Photon> RadioactiveNucleus::decay()
 {
   has_decayed = true;
-  std::vector<Photon> vector;
-  vector.emplace_back(1);
-  return vector;
+
+  std::vector<Photon> radiated_photons;
+  radiated_photons.reserve(photons.size());
+  for(auto& ptr : photons) { if(ptr) { radiated_photons.push_back(std::move(*ptr)); } }
+  photons.clear();
+  for(int i=0; i<radiated_photons.size(); i++)
+  {
+    radiated_photons[i].printData();
+  }
+  return radiated_photons;
 }
 
-void RadioactiveNucleus::printData()
+void RadioactiveNucleus::printData() const
 {
   std::string row;
   row += add_spaces(type, 7);
