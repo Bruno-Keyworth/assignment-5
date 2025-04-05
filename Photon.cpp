@@ -19,3 +19,14 @@ void Photon::printData()
   row += " | " + to_string_trimmed(energy);
   std::cout<<row<<std::endl;
 }
+
+void Photon::setE(double E)
+{
+  if(E<rest_mass) { throw std::invalid_argument("Error: Energy cannot be less than rest mass energy"); }
+  energy = E;
+  if(E>2*rest_mass)
+  {
+    electrons.push_back(std::make_shared<Electron>(E/2));
+    electrons.push_back(std::make_shared<Electron>(E/2));
+  }
+}

@@ -9,13 +9,14 @@
 #include<string>
 #include<vector>
 #include<cmath>
+#include<memory>
 #include<functional>
 #include"Particle.h"
 
 class Electron : public Particle
 {
 private:
-  const double rest_mass = 0.511;
+  std::vector<std::shared_ptr<class Photon>> photons;
 protected:
 
 public:

@@ -53,35 +53,42 @@ std::string add_spaces(std::string str, int length)
   return str;
 }
 
-std::string to_string_trimmed(double value) {
-    std::ostringstream out;
-    out << std::fixed << std::setprecision(10) << value;  // Adjust precision as needed
-    std::string str = out.str();
+std::string to_string_trimmed(double value)
+{
+  std::ostringstream out;
+  out << std::fixed << std::setprecision(10) << value;  // Adjust precision as needed
+  std::string str = out.str();
 
-    // Remove trailing zeros and unnecessary decimal points
-    str.erase(str.find_last_not_of('0') + 1, std::string::npos);
-    if (str.back() == '.') {
-        str.pop_back();  // Remove trailing decimal point if necessary
-    }
-    return str;
+  // Remove trailing zeros and unnecessary decimal points
+  str.erase(str.find_last_not_of('0') + 1, std::string::npos);
+  if (str.back() == '.') {
+      str.pop_back();  // Remove trailing decimal point if necessary
+  }
+  return str;
 }
 
-double photoelectric_effect(const Photon& photon) {
-    return photon.getE();
+double photoelectric_effect(const Photon& photon)
+{
+  return photon.getE();
 }
 
-void compton_effect(Photon& photon, double theta) {
-    double E_prime = photon.getE() / (1 + (photon.getE() / 0.511) * (1 - cos(theta)));
-    photon.setE(E_prime);
+void compton_effect(Photon& photon, double theta)
+{
+  double E_prime = photon.getE() / (1 + (photon.getE() / 0.511) * (1 - cos(theta)));
+  photon.setE(E_prime);
 }
 
-std::vector<Electron> pair_production(Photon& photon) {
-    if (photon.getE() < 1.022) {
-        std::cerr << "Error: Photon energy is too low for pair production. Energy must be greater than 1.022 MeV."<<std::endl;
-        return {};
-    }
-    double energy_per_electron = photon.getE() / 2;
-    std::vector<Electron> electrons = {Electron(energy_per_electron), Electron(energy_per_electron)};
-
-    return electrons;
+std::vector<Electron> pair_production(Photon& photon)
+{
+  if (photon.getE() < 1.022)
+  {
+    std::cerr << "Error: Photon energy is too low for pair production. Energy must be greater than 1.022 MeV."<<std::endl;
+    return {};
+  }
+  std::vector<Electron> electrons;
+  for (const auto& electron : photon.electrons)
+  {
+    electrons.push_back(*electron);
+  }
+  return electrons;
 }

@@ -22,7 +22,7 @@ protected:
   void trySet(const std::function<void()>& setter);
 public:
   void setMass(double mass);
-  void setE(double E);
+  virtual void setE(double E);
   void setType(std::string ptype) { type = ptype; }
   double getMass() const { return rest_mass; }
   double getE() const { return energy; }
