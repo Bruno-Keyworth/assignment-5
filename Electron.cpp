@@ -9,3 +9,12 @@
 #include<cmath>
 #include"Electron.h"
 #include"Photon.h"
+#include"functions.h"
+
+void Electron::printData()
+{
+  std::string row;
+  row += "Electron ";
+  row += " | " + to_string_trimmed(energy);
+  std::cout<<row<<std::endl;
+}

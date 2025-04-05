@@ -32,7 +32,7 @@ int main()
   for(const auto& nucleus : nuclei) std::visit([](auto& n) { n.printData(); }, nucleus);
   std::cout<<std::string(80, '-')<<std::endl;
   
-  std::cout<<"Decay product data:"<<std::endl;
+  std::cout<<"Emitted photon data:"<<std::endl;
   std::cout<<std::string(80, '-')<<std::endl;
   std::cout<<"Particle | Source | Energy"<<std::endl;
   std::cout<<std::string(80, '-')<<std::endl;

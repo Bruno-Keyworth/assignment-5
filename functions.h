@@ -17,4 +17,5 @@ int get_index(int element, std::vector<int> vector);
 int get_index(double element, std::vector<double> vector);
 std::string add_spaces(std::string str, int length);
 std::string to_string_trimmed(double value);
+
 #endif

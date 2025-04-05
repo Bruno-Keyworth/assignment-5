@@ -10,6 +10,8 @@
 #include <sstream>
 #include <iomanip>
 #include"functions.h"
+#include"Photon.h"
+#include"Electron.h"
 
 int get_index(std::string element, std::vector<std::string> vector)
 {
@@ -62,4 +64,24 @@ std::string to_string_trimmed(double value) {
         str.pop_back();  // Remove trailing decimal point if necessary
     }
     return str;
+}
+
+double photoelectric_effect(const Photon& photon) {
+    return photon.getE();
+}
+
+void compton_effect(Photon& photon, double theta) {
+    double E_prime = photon.getE() / (1 + (photon.getE() / 0.511) * (1 - cos(theta)));
+    photon.setE(E_prime);
+}
+
+std::vector<Electron> pair_production(Photon& photon) {
+    if (photon.getE() < 1.022) {
+        std::cerr << "Error: Photon energy is too low for pair production. Energy must be greater than 1.022 MeV."<<std::endl;
+        return {};
+    }
+    double energy_per_electron = photon.getE() / 2;
+    std::vector<Electron> electrons = {Electron(energy_per_electron), Electron(energy_per_electron)};
+
+    return electrons;
 }

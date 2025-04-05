@@ -16,10 +16,11 @@
 class Photon : public Particle
 {
 private:
+  friend class Electron;
+  friend double photoelectric_effect(Photon& photon);
+  friend std::vector<Electron> pair_production(Photon& photon);
+  friend void compton_effect(Photon& photon, double theta);
   std::string source;
-protected:
-  double energy;
-
 public:
   void printData() override;
   void setSource(std::string emitted_by) { source = emitted_by; }
@@ -29,8 +30,6 @@ public:
   {
     trySet([&] { setSource(emitted_by); });
   }
-
-  friend class Electron;
 };
 
 #endif

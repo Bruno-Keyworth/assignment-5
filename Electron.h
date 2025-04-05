@@ -19,7 +19,7 @@ private:
 protected:
 
 public:
-  virtual void printData();
+  void printData() override;
   
   Electron(double E) : Particle(0.511, E) {}
   
