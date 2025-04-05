@@ -14,7 +14,7 @@
 class Particle
 {
 private:
-  std::string type;
+  std::string type = "unknown";
 protected:
   double rest_mass;
   double energy;
@@ -31,6 +31,12 @@ public:
   
   Particle(double mass, double E)
   {
+    trySet([&] { setMass(mass); });
+    trySet([&] { setE(E); });
+  }
+  Particle(std::string ptype, double mass, double E)
+  {
+    trySet([&] { setType(ptype); });
     trySet([&] { setMass(mass); });
     trySet([&] { setE(E); });
   }

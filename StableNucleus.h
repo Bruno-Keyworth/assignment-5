@@ -13,9 +13,11 @@
 
 class StableNucleus : public Nucleus
 {
-protected: 
-  //...
+protected:
 public:
+  StableNucleus(int Z, int A) : Nucleus(Z, A) {}
+  StableNucleus(std::string isotope) : Nucleus(isotope) {}
+  
   void printData() override;
 
 };

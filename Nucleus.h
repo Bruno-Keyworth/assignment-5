@@ -29,33 +29,31 @@ private:
           "Rg", "Cn", "Nh", "Fl", "Mc", "Lv", "Ts", "Og"
       };
 protected:
-  int atomic_number;
-  int atomic_mass;
-  std::string type;
+  int atomic_number = 55;
+  int atomic_mass = 137;
+  std::string type = "Cs-137";
   void trySet(const std::function<void()>& setter);
+  void setZ();
+  void setA();
+  void setType();
 public:
   void setZ(int Z);
-  void setZ();
   void setA(int A);
-  void setA();
-  void setType(std::string ntype) { type = ntype; }
-  void setType();
+  void setType(std::string ntype) { type = ntype; setZ(); setA(); }
   int getZ() const { return atomic_number; }
   int getA() const { return atomic_mass; }
   std::string getType() const { return type; }
   virtual void printData();
   
+  Nucleus() = default;
   Nucleus(int Z, int A)
   {
     trySet([&] { setZ(Z); });
     trySet([&] { setA(A); });
-    trySet([&] { setType(); });
   }
   Nucleus(std::string isotope)
   {
     trySet([&] { setType(isotope); });
-    trySet([&] { setZ(); });
-    trySet([&] { setA(); });
   }
   
   virtual ~Nucleus() = default;

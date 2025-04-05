@@ -14,6 +14,7 @@ void Nucleus::setZ(int Z)
 {
   if(Z < 1) { throw std::invalid_argument("Error: Atomic Number must be positive."); }
   atomic_number = Z;
+  setType();
 }
 
 void Nucleus::setZ()
@@ -30,6 +31,7 @@ void Nucleus::setA(int A)
 {
   if(A < atomic_number) { throw std::invalid_argument("Error: Atomic mass cannot be less than atomic number."); }
   atomic_mass = A;
+  setType();
 }
 
 void Nucleus::setA()
