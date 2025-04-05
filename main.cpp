@@ -16,7 +16,7 @@
 
 int main()
 {
-  RadioactiveNucleus n(11, 23);
+  RadioactiveNucleus n("Hg-200");
   n.printData();
   return 0;
 }

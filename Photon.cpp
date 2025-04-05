@@ -9,3 +9,8 @@
 #include<cmath>
 #include"Photon.h"
 #include"Electron.h"
+
+void Photon::printData()
+{
+  
+}

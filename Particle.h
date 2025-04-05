@@ -23,7 +23,7 @@ protected:
 public:
   void setMass(double mass);
   void setE(double E);
-  void setType(std::string ptype);
+  void setType(std::string ptype) { type = ptype; }
   double getMass() const { return rest_mass; }
   double getE() const { return energy; }
   std::string getType() const { return type; }

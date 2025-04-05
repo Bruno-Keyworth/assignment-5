@@ -22,7 +22,7 @@ protected:
 
   void trySet(const std::function<void()>& setter);
 public:
-  virtual void printData();
+  void printData() override;
   
   Photon(double E) : Particle(0, E) {}
   
