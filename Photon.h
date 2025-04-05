@@ -9,6 +9,7 @@
 #include<string>
 #include<vector>
 #include<cmath>
+#include<memory>
 #include<functional>
 #include"Particle.h"
 #include"Electron.h"
@@ -21,6 +22,7 @@ private:
   friend std::vector<Electron> pair_production(Photon& photon);
   friend void compton_effect(Photon& photon, double theta);
   std::string source;
+  //std::vector<std::unique_ptr<Electron>> electrons;
 public:
   void printData() override;
   void setSource(std::string emitted_by) { source = emitted_by; }

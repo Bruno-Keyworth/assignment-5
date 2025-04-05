@@ -36,7 +36,17 @@ int main()
   std::cout<<std::string(80, '-')<<std::endl;
   std::cout<<"Particle | Source | Energy"<<std::endl;
   std::cout<<std::string(80, '-')<<std::endl;
-  for(auto& nucleus : nuclei) { std::visit([](auto& n) { if constexpr (std::is_same_v<decltype(n), RadioactiveNucleus&>) {n.decay();} }, nucleus); }
+  std::vector<Photon> photons;
+  for(auto& nucleus : nuclei)
+  {
+    std::visit([&photons](auto& n)
+    { if constexpr (std::is_same_v<decltype(n), RadioactiveNucleus&>)
+      {
+        auto some_photons = n.decay();
+        photons.insert(photons.end(), some_photons.begin(), some_photons.end());
+      }
+    }, nucleus);
+  }
   std::cout<<std::string(80, '-')<<std::endl;
   
   std::cout<<"Final nuclei data:"<<std::endl;
