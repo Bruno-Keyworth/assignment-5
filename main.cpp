@@ -49,6 +49,8 @@ int main()
   }
   std::cout<<std::string(80, '-')<<std::endl;
   
+  std::vector<Electron> electrons = pair_production(photons[0]);
+  
   std::cout<<"Final nuclei data:"<<std::endl;
   std::cout<<std::string(80, '-')<<std::endl;
   std::cout<<"Isotope | Z   | A   | Halflife (yr) | Decayed?"<<std::endl;

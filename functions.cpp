@@ -92,3 +92,23 @@ std::vector<Electron> pair_production(Photon& photon)
   }
   return electrons;
 }
+
+Photon radiate(Electron& electron)
+{
+  Photon photon = *(electron.photons[0]);
+  electron.photons.erase(electron.photons.begin());
+  electron.energy -= photon.getE();
+  return photon;
+}
+
+Photon radiate(Electron& electron, double photon_energy)
+{
+  (electron.photons).clear();
+  double delta_E = electron.energy - electron.rest_mass;
+  int num_photons = static_cast<int>(floor(delta_E/photon_energy));
+  for(int i=0; i<num_photons; i++) { electron.photons.push_back(std::make_shared<Photon>(photon_energy)); }
+  Photon photon = *(electron.photons[0]);
+  electron.photons.erase(electron.photons.begin());
+  electron.setE(electron.getE() - photon.getE());
+  return photon;
+}

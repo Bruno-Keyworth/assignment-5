@@ -11,6 +11,8 @@
 #include<cmath>
 #include<functional>
 
+class Photon;
+class Electron;
 class Particle
 {
 private:
@@ -18,7 +20,11 @@ private:
 protected:
   double rest_mass;
   double energy;
-
+  friend Photon radiate(Electron& electron);
+  friend Photon radiate(Electron& electron, double photon_energy);
+  friend double photoelectric_effect(Photon& photon);
+  friend std::vector<Electron> pair_production(Photon& photon);
+  friend void compton_effect(Photon& photon, double theta);
   void trySet(const std::function<void()>& setter);
 public:
   void setMass(double mass);

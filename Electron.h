@@ -17,14 +17,15 @@ class Electron : public Particle
 {
 private:
   std::vector<std::shared_ptr<class Photon>> photons;
-protected:
-
+  friend class Photon;
+  friend Photon radiate(Electron& electron);
+  friend Photon radiate(Electron& electron, double photon_energy);
+  double photon_energy = 0.1;
 public:
   void printData() override;
+  void setE(double E) override;
   
   Electron(double E) : Particle(0.511, E) {}
-  
-  friend class Photon;
 };
 
 #endif
