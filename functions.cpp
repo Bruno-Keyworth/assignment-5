@@ -93,6 +93,7 @@ std::vector<Electron> pair_production(Photon& photon)
   return electrons;
 }
 
+// The electron can only radiate photons whose energies add up to less than the difference between total electron energy and rest mass energy. A default photon energy of 0.1 MeV is set, or a different energy can be added as an argument to the radiate function.
 Photon radiate(Electron& electron)
 {
   Photon photon = *(electron.photons[0]);
@@ -109,6 +110,6 @@ Photon radiate(Electron& electron, double photon_energy)
   for(int i=0; i<num_photons; i++) { electron.photons.push_back(std::make_shared<Photon>(photon_energy)); }
   Photon photon = *(electron.photons[0]);
   electron.photons.erase(electron.photons.begin());
-  electron.setE(electron.getE() - photon.getE());
+  electron.energy -= photon.getE();
   return photon;
 }
