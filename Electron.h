@@ -21,11 +21,15 @@ private:
   friend Photon radiate(Electron& electron);
   friend Photon radiate(Electron& electron, double photon_energy);
   double photon_energy = 0.1;
+  bool anti = false;
 public:
   void printData() override;
   void setE(double E) override;
+  void setAnti(bool is_anti) { anti = is_anti; }
+  void setAnti();
   
   Electron(double E) : Particle(0.511, E) {}
+  Electron(double E, bool is_anti) : Particle(0.511, E) { setAnti(is_anti); }
 };
 
 #endif

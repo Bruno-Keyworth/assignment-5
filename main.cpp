@@ -15,6 +15,7 @@
 #include"Particle.h"
 #include"Electron.h"
 #include"Photon.h"
+#include"functions.h"
 
 int main()
 {
@@ -49,7 +50,20 @@ int main()
   }
   std::cout<<std::string(80, '-')<<std::endl;
   
-  std::vector<Electron> electrons = pair_production(photons[0]);
+  photoelectric_effect(photons[0]);
+  compton_effect(photons[1], 0.05);
+  std::vector<Electron> electrons = pair_production(photons[2]);
+  std::vector<Electron> more_electrons = pair_production(photons[3]);
+  electrons.insert(electrons.end(), more_electrons.begin(), more_electrons.end());
+  
+  std::cout<<"Pair produced electrons data:"<<std::endl;
+  std::cout<<std::string(80, '-')<<std::endl;
+  std::cout<<"Particle | energy | rest mass "<<std::endl;
+  std::cout<<std::string(80, '-')<<std::endl;
+  for(Electron e : electrons) { e.printData(); }
+  std::cout<<std::string(80, '-')<<std::endl;
+  
+  Photon photon = radiate(electrons[0]);
   
   std::cout<<"Final nuclei data:"<<std::endl;
   std::cout<<std::string(80, '-')<<std::endl;

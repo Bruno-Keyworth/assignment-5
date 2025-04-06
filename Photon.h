@@ -29,10 +29,11 @@ public:
   void setSource(std::string emitted_by) { source = emitted_by; }
   void setE(double E) override;
   
-  Photon(double E) : Particle(0, E) {}
+  Photon(double E) : Particle(0, E) { trySet([&] { setE(E); }); }
   Photon(double E, std::string emitted_by) : Particle(0, E)
   {
     trySet([&] { setSource(emitted_by); });
+    trySet([&] { setE(E); });
   }
 };
 

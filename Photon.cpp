@@ -22,11 +22,11 @@ void Photon::printData()
 
 void Photon::setE(double E)
 {
-  if(E<rest_mass) { throw std::invalid_argument("Error: Energy cannot be less than rest mass energy"); }
+  if(E<0) { throw std::invalid_argument("Error: photon energy cannot be negative."); }
   energy = E;
-  if(E>2*rest_mass)
+  if(E>1.022)
   {
     electrons.push_back(std::make_shared<Electron>(E/2));
-    electrons.push_back(std::make_shared<Electron>(E/2));
+    electrons.push_back(std::make_shared<Electron>(E/2, true));
   }
 }

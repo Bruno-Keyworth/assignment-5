@@ -67,15 +67,17 @@ std::string to_string_trimmed(double value)
   return str;
 }
 
-double photoelectric_effect(const Photon& photon)
+double photoelectric_effect(Photon& photon)
 {
-  return photon.getE();
+  std::cout<<"Photoelectric effect: Photon energy = "<<photon.getE()<<" MeV"<<std::endl;
+  return photon.energy;
 }
 
 void compton_effect(Photon& photon, double theta)
 {
   double E_prime = photon.getE() / (1 + (photon.getE() / 0.511) * (1 - cos(theta)));
   photon.setE(E_prime);
+  std::cout<<"Compton effect: Photon energy = "<<photon.getE()<<" MeV"<<std::endl;
 }
 
 std::vector<Electron> pair_production(Photon& photon)
@@ -96,9 +98,13 @@ std::vector<Electron> pair_production(Photon& photon)
 // The electron can only radiate photons whose energies add up to less than the difference between total electron energy and rest mass energy. A default photon energy of 0.1 MeV is set, or a different energy can be added as an argument to the radiate function.
 Photon radiate(Electron& electron)
 {
+  if(electron.energy-electron.rest_mass < electron.photon_energy) { throw std::invalid_argument("Electron has insufficient energy to radiate this photon."); }
+  else if(electron.photons.size()==0) { electron.setE(electron.energy); }
   Photon photon = *(electron.photons[0]);
   electron.photons.erase(electron.photons.begin());
   electron.energy -= photon.getE();
+  std::cout<<"Electron radiated photon of energy "<<photon.getE()<<" MeV"<<std::endl;
+  std::cout<<"Remaining electron energy = "<<electron.energy<<" MeV"<<std::endl;
   return photon;
 }
 
@@ -111,5 +117,7 @@ Photon radiate(Electron& electron, double photon_energy)
   Photon photon = *(electron.photons[0]);
   electron.photons.erase(electron.photons.begin());
   electron.energy -= photon.getE();
+  std::cout<<"Electron radiated photon of energy "<<photon.getE()<<" MeV"<<std::endl;
+  std::cout<<"Remaining electron energy = "<<electron.energy<<" MeV"<<std::endl;
   return photon;
 }

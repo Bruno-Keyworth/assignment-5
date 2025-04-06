@@ -14,8 +14,10 @@
 void Electron::printData()
 {
   std::string row;
-  row += "Electron ";
-  row += " | " + to_string_trimmed(energy);
+  if(anti) { row += "Positron"; }
+  else { row += "Electron"; }
+  row += " | " + add_spaces(to_string_trimmed(std::round(energy * 10000.0) / 10000.0), 6);
+  row += " | " + to_string_trimmed(rest_mass);
   std::cout<<row<<std::endl;
 }
 
@@ -26,4 +28,10 @@ void Electron::setE(double E)
   double delta_E = energy - rest_mass;
   int num_photons = static_cast<int>(floor(delta_E/photon_energy));
   for(int i=0; i<num_photons; i++) { photons.push_back(std::make_shared<Photon>(photon_energy)); }
+}
+
+void Electron::setAnti()
+{
+  if(anti) { anti = false; }
+  else { anti = true; }
 }
